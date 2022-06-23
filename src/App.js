@@ -1,11 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import TimeZones from './screens/timeZones/TimeZones';
+import TimeZonesState from './context/timeZones/timeZonesState';
+import TimeZones from './pages/timeZones/TimeZones';
+
 
 function App() {
   return (
     <div className="App">
-      <TimeZones />
+      <TimeZonesState>
+        <TimeZones />
+      </TimeZonesState>
     </div>
   );
 }
