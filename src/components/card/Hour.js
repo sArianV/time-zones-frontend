@@ -54,12 +54,8 @@ function Hour({ date_in_miliseconds }) {
     }
     , [date])
 
-    const memorizedDate = useMemo(() => {
-        return  hours + ":" + minutes + " " + amPm 
-    }, [hours, minutes, amPm])
-
     return (
-        <div> {memorizedDate} </div>
+        <div> {hours + ":" + minutes + " " + amPm} </div>
     )
 }
 
