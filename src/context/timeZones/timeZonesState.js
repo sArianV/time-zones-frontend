@@ -42,13 +42,24 @@ const TimeZonesState = props => {
         }
     }
 
+    const fetchTimeZone = async(timeZone) => {
+        try {
+            const response = await axiosService(`/timezones?name=${timeZone}`);
+            return response?.data?.timezone || null;
+        } catch (error) {
+            console.log(error);
+            return;
+        }
+    }
+
     return (
         <TimeZonesContext.Provider
             value={{
                 timeZones: state.timeZones,
                 userTimeZones: state.userTimeZones,
                 reloadUserData: state.reloadUserData,
-                getUserTimeZones
+                getUserTimeZones,
+                fetchTimeZone
             }}
         >{props.children}
 
