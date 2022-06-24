@@ -7,15 +7,21 @@ function useStateAndRef(initial) {
     return [value, setValue, valueRef];
 }
 
-function Hour({ ianatz }) {
+const useTimeZoneClock = (ianatz, offset) => {
+    const [year, setYear, refYear] = useStateAndRef();
+    const [month, setMonth, refMonth] = useStateAndRef();
+    const [day, setDay, refDay] = useStateAndRef();
     const [hours, setHours, refHours] = useStateAndRef()
     const [minutes, setMinutes, refMinutes] = useStateAndRef()
-    const [amPm, setAmPm, refAmPm ] = useStateAndRef()
+    const [amPm, setAmPm, refAmPm] = useStateAndRef()
     const [date, setDate] = useState()
 
     const getDate = () => {
         if (date) {
             const initialTime = new Date(date)
+            const newYear = initialTime.getFullYear()
+            const newMonth = initialTime.getMonth() + 1
+            const newDay = initialTime.getDate()
             const hours_24 = initialTime.getHours()
             const hours_12 = hours_24 > 12 ? hours_24 - 12 : hours_24
 
@@ -35,6 +41,30 @@ function Hour({ ianatz }) {
                 setAmPm(newAmPm)
             }
 
+            if (!year) {
+                setYear(year)
+            }
+
+            if (!month) {
+                setMonth(month)
+            }
+
+            if (!day) {
+                setDay(day)
+            }
+
+            if (refYear.current !== newYear) {
+                setYear(newYear)
+            }
+
+            if (refMonth.current !== newMonth) {
+                setMonth(newMonth)
+            }
+
+            if (refDay.current !== newDay) {
+                setDay(newDay)
+            }
+
             if (refHours.current !== newHour) {
                 setHours(newHour)
             }
@@ -43,43 +73,51 @@ function Hour({ ianatz }) {
                 setMinutes(newMinutes)
             }
 
-            if ( refAmPm.current !== newAmPm) {
+            if (refAmPm.current !== newAmPm) {
                 setAmPm(newAmPm)
             }
         }
     }
 
+    const initClock = () => {
+        const here = new Date();
+        const invdate = new Date(here.toLocaleString('en-US', {
+            timeZone: ianatz
+        }));
+
+        const substract_in_miliseconds = invdate.getTime() - offset;
+
+        setDate((new Date(substract_in_miliseconds)).getTime())
+    }
+
     useEffect(() => {
-        getDate()
+        initClock()
+        
         const interval = setInterval(() => {
             const here = new Date();
             const invdate = new Date(here.toLocaleString('en-US', {
                 timeZone: ianatz
             }));
-            const diff = here.getTime() - invdate.getTime();
 
-            const substract_in_miliseconds = here.getTime() - diff;
+            const substract_in_miliseconds = invdate.getTime() - offset;
 
             setDate((new Date(substract_in_miliseconds)).getTime())
-        }, 2000);
+        }, 10000);
         return () => clearInterval(interval);
-    }
-    , [])
+    }, [])
 
     useEffect(() => {
         getDate()
-    }
-    , [date])
+    }, [date])
 
-    return (
-        <div>
-            { hours != null && minutes != null && amPm != null &&
-                <>
-                    {hours + ":" + minutes + " " + amPm}
-                </>
-            }
-        </div>
-    )
+    return ({
+        year,
+        month,
+        day,
+        hours,
+        minutes,
+        amPm
+    })
 }
 
-export default Hour
+export default useTimeZoneClock;
