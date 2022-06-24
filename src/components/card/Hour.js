@@ -44,7 +44,7 @@ function Hour({ date_in_miliseconds }) {
         getDate(date_in_miliseconds)
         const interval = setInterval(() => {
             setDate(prev_date => prev_date + 1000)
-        }, 1000);
+        }, 2000);
         return () => clearInterval(interval);
     }
     , [])
