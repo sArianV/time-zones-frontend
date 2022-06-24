@@ -22,7 +22,7 @@ function ListTimeZones() {
   return (
     <div className={styles.root}> 
     { 
-      userTimeZones && !loading &&
+      userTimeZones && 
         userTimeZones.map( timeZone => {
           return (
             <CardTimeZone
@@ -32,10 +32,7 @@ function ListTimeZones() {
           )
         })
     }
-    {
-      loading &&
-      <Loader />
-    }
+    
     </div>
   )
 }
