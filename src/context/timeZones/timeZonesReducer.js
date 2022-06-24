@@ -7,6 +7,11 @@ export default (state, action) => {
                 ...state,                
                 userTimeZones: action.payload
             }
+        case ACTIONS.DELETE_USER_TIME_ZONE:
+            return {
+                ...state,
+                reloadUserData: !state.reloadUserData
+            }
         default:
             return state;
     }

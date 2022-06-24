@@ -52,6 +52,23 @@ const TimeZonesState = props => {
         }
     }
 
+    const deleteUserTimeZone = async(timeZone) => {
+        try {
+            const response = await axiosService.delete(`/timezones/`,{
+                data: {
+                    "user_id": user_id,
+                    "name": timeZone
+                }
+            });
+            console.log(response)
+            dispatch({
+                type: ACTIONS.DELETE_USER_TIME_ZONE,
+            });
+        } catch (error) {
+            console.log(error);
+            return;
+        }
+    }
     return (
         <TimeZonesContext.Provider
             value={{
@@ -59,7 +76,8 @@ const TimeZonesState = props => {
                 userTimeZones: state.userTimeZones,
                 reloadUserData: state.reloadUserData,
                 getUserTimeZones,
-                fetchTimeZone
+                fetchTimeZone,
+                deleteUserTimeZone
             }}
         >{props.children}
 

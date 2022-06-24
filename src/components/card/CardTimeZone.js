@@ -3,9 +3,10 @@ import TimeZonesContext from '../../context/timeZones/timeZonesContext';
 import styles from './cardTimeZone.module.css'
 import Clock from '../clock/Clock';
 import DeleteButton from '../buttons/DeleteButton';
+import Loader from '../loader/Loader';
 function CardTimeZone({ timeZone }) {
     const timeZonesContext = useContext(TimeZonesContext);
-    const { fetchTimeZone } = timeZonesContext;
+    const { fetchTimeZone, deleteUserTimeZone } = timeZonesContext;
 
     const [loading, setLoading] = useState(false);
     const [timeZoneData, setTimeZoneData] = useState();
@@ -19,7 +20,6 @@ function CardTimeZone({ timeZone }) {
         setLoading(true);
         const data = await fetchTimeZone(name);
         setLoading(false);
-        console.log(data)
         setTimeZoneData({
             ...data,
             location: getLoacation(data.timezone)
@@ -30,13 +30,22 @@ function CardTimeZone({ timeZone }) {
         getTimeZone(timeZone)
     }, [timeZone])
 
+    const handleDelete = async() => {
+        deleteUserTimeZone(timeZone)
+    }
+
     return (
         <div className={styles.card_container}>
             <div className={styles.card}>
-                <DeleteButton />
+                <div 
+                    className={styles.delete_button_container} 
+                    onClick={handleDelete}
+                >
+                    <DeleteButton />
+                </div>
                 {
                     loading &&
-                    "loading..."
+                    <Loader />
                 }
                 {
                     timeZoneData &&
