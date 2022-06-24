@@ -15,25 +15,12 @@ function CardTimeZone({ timeZone }) {
         return location;
     }
 
-    function changeTimezone(date, ianatz) {
-        var invdate = new Date(date.toLocaleString('en-US', {
-          timeZone: ianatz
-        }));      
-        var diff = date.getTime() - invdate.getTime();
-        
-        const substract_in_miliseconds = date.getTime() - diff;
-        return (new Date(substract_in_miliseconds)).getTime(); // needs to substract      
-    }
-
     const getTimeZone = async (name) => {
         setLoading(true);
         const data = await fetchTimeZone(name);
         setLoading(false);
-        const here = new Date();
-        const date_in_miliseconds = changeTimezone(here, data.timezone)
         setTimeZoneData({
             ...data,
-            date_in_miliseconds: date_in_miliseconds,
             location: getLoacation(data.timezone)
         });
     }
@@ -58,7 +45,7 @@ function CardTimeZone({ timeZone }) {
                         <div >
                             fecha
                         </div>
-                        <Hour date_in_miliseconds={timeZoneData.date_in_miliseconds} />
+                        <Hour ianatz={timeZoneData.timezone}/>
                     </>
                 }
             </div>

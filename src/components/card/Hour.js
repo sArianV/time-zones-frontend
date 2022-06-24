@@ -1,61 +1,84 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-function Hour({ date_in_miliseconds }) {
-    const [hours, setHours] = useState()
-    const [minutes, setMinutes] = useState()
-    const [amPm, setAmPm] = useState()
-    const [date, setDate] = useState(date_in_miliseconds)
+function useStateAndRef(initial) {
+    const [value, setValue] = useState(initial);
+    const valueRef = useRef(value);
+    valueRef.current = value;
+    return [value, setValue, valueRef];
+}
 
-    const getDate = (date, hours, minutes, amPm) => {
-        const initialTime = new Date(date)
-        const hours_24 = initialTime.getHours()
-        const hours_12 = hours_24 > 12 ? hours_24 - 12 : hours_24
+function Hour({ ianatz }) {
+    const [hours, setHours, refHours] = useStateAndRef()
+    const [minutes, setMinutes, refMinutes] = useStateAndRef()
+    const [amPm, setAmPm, refAmPm ] = useStateAndRef()
+    const [date, setDate] = useState()
 
-        const newHour = hours_12 < 10 ? `0${hours_12}` : hours_12
-        const newMinutes = initialTime.getMinutes() < 10 ? `0${initialTime.getMinutes()}` : initialTime.getMinutes()
-        const newAmPm = hours_24 > 12 ? 'PM' : 'AM'
-        
-        if ( !hours ) {                    
-            setHours(newHour)
-        }
+    const getDate = () => {
+        if (date) {
+            const initialTime = new Date(date)
+            const hours_24 = initialTime.getHours()
+            const hours_12 = hours_24 > 12 ? hours_24 - 12 : hours_24
 
-        if ( !minutes ) {
-            setMinutes(newMinutes)
-        }
-        
-        if ( !amPm ) {
-            setAmPm(newAmPm)
-        }
+            const newHour = hours_12 < 10 ? `0${hours_12}` : hours_12
+            const newMinutes = initialTime.getMinutes() < 10 ? `0${initialTime.getMinutes()}` : initialTime.getMinutes()
+            const newAmPm = hours_24 > 12 ? 'PM' : 'AM'
 
-        if ( hours !== newHour) {
-            setHours(newHour)
-        }
+            if (!hours) {
+                setHours(newHour)
+            }
 
-        if ( minutes !== newMinutes) {
-            setMinutes(newMinutes)
-        }
+            if (!minutes) {
+                setMinutes(newMinutes)
+            }
 
-        if ( amPm !== newAmPm) {
-            setAmPm(newAmPm)
+            if (!amPm) {
+                setAmPm(newAmPm)
+            }
+
+            if (refHours.current !== newHour) {
+                setHours(newHour)
+            }
+
+            if (refMinutes.current !== newMinutes) {
+                setMinutes(newMinutes)
+            }
+
+            if ( refAmPm.current !== newAmPm) {
+                setAmPm(newAmPm)
+            }
         }
     }
 
     useEffect(() => {
-        getDate(date_in_miliseconds)
+        getDate()
         const interval = setInterval(() => {
-            setDate(prev_date => prev_date + 1000)
+            const here = new Date();
+            const invdate = new Date(here.toLocaleString('en-US', {
+                timeZone: ianatz
+            }));
+            const diff = here.getTime() - invdate.getTime();
+
+            const substract_in_miliseconds = here.getTime() - diff;
+
+            setDate((new Date(substract_in_miliseconds)).getTime())
         }, 2000);
         return () => clearInterval(interval);
     }
     , [])
 
     useEffect(() => {
-        getDate(date, hours, minutes, amPm)
+        getDate()
     }
     , [date])
 
     return (
-        <div> {hours + ":" + minutes + " " + amPm} </div>
+        <div>
+            { hours != null && minutes != null && amPm != null &&
+                <>
+                    {hours + ":" + minutes + " " + amPm}
+                </>
+            }
+        </div>
     )
 }
 
