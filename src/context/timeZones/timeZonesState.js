@@ -7,6 +7,7 @@ import axios from 'axios';
 const TimeZonesState = props => {
     const initialState = {
         timeZones: [],
+        suggestions: [],
         userTimeZones: [],
         reloadUserData: false
     };
@@ -60,7 +61,7 @@ const TimeZonesState = props => {
                     "name": timeZone
                 }
             });
-            console.log(response)
+
             dispatch({
                 type: ACTIONS.DELETE_USER_TIME_ZONE,
             });
@@ -69,6 +70,45 @@ const TimeZonesState = props => {
             return;
         }
     }
+
+    const fetchTimeZones = async() => {
+        try {
+            const response = await axiosService(`/timezones`);
+            const timeZones = response?.data?.timezones || [];
+
+            dispatch({
+                type: ACTIONS.GET_TIME_ZONES,
+                payload: timeZones,
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const setSuggestions = async(suggestions) => {
+        dispatch({
+            type: ACTIONS.SET_SUGGESTIONS,
+            payload: suggestions,
+        });
+    }
+
+    const addUserTimeZone = async(timeZone) => {
+        try {
+            const response = await axiosService.put(`/timezones/`,{
+                "user_id": user_id,
+                "name": timeZone
+            });
+
+            dispatch({
+                type: ACTIONS.ADD_USER_TIME_ZONE,
+            });
+            return
+        } catch (error) {
+            console.log(error);
+            return;
+        }
+    }
+
     return (
         <TimeZonesContext.Provider
             value={{
@@ -77,7 +117,11 @@ const TimeZonesState = props => {
                 reloadUserData: state.reloadUserData,
                 getUserTimeZones,
                 fetchTimeZone,
-                deleteUserTimeZone
+                deleteUserTimeZone,
+                fetchTimeZones,
+                suggestions: state.suggestions,
+                setSuggestions,
+                addUserTimeZone
             }}
         >{props.children}
 
