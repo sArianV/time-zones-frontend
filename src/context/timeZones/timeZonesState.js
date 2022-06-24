@@ -15,7 +15,7 @@ const TimeZonesState = props => {
     const [state, dispatch] = useReducer(TimeZonesReducer, initialState);
 
     const axiosService = axios.create({
-        baseURL: process.env.REACT_APP_API_URL,
+        baseURL: process.env.REACT_APP_API_URL || "https://time-zone-app-v.herokuapp.com",
     })
 
     const user_id = localStorage.getItem('user_id') || null;
