@@ -1,0 +1,38 @@
+.root {    
+    width: 100%;
+    max-width: 41rem;
+    height: 4rem;
+    background-color: brown;
+    position:relative;
+}
+
+.input_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 99%;
+    height: 98%;
+    background-color: bisque;
+    cursor:text
+}
+
+.suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: red
+}
+
+@media only screen and (min-width: 481px) and (max-width: 1024px) {
+    .root {
+        max-width: 38rem;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 480px) {
+    .root {
+        max-width: 21rem
+    }
+}

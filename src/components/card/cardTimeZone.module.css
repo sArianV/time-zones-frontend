@@ -1,0 +1,39 @@
+.card_container {
+    width: 25%;
+    max-width: 25%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card {
+    position:relative;
+    margin: .5rem;
+    width: calc(100% - 1rem);
+    max-width: calc(100% - 1rem);
+    min-height: 8.75rem;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.delete_button_container {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 1024px) {
+    .card_container {
+        width: 50%;
+        max-width: 50%;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 480px) {
+    .card_container {
+        width: 100%;
+        max-width: 100%;
+    }
+}

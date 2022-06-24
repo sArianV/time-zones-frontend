@@ -1,0 +1,25 @@
+.delete_button {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    border-radius: 15%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.delete_button:hover {
+    background-color: rgba(211, 211, 211, 0.486);
+}
+
+.cross {
+    margin: 0;
+    padding: 0;
+    margin: -.3em 0px 0px 0px;
+}
+
+.cross:before { content: '\1F5D9'; }
