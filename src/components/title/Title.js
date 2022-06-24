@@ -4,7 +4,9 @@ import styles from "./title.module.css"
 function Title() {
   return (
     <div className={styles.root}>
-        World Time Zones App
+      <h1>
+        World Time
+      </h1>
     </div>
   )
 }

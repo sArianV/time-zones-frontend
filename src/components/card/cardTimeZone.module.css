@@ -1,0 +1,28 @@
+.card_container {
+    width: 25%;
+    max-width: 25%;
+    box-sizing: border-box;
+}
+
+.card {
+    margin: .5rem;
+    padding: 1rem;
+    width: calc(100% - 3rem);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.08);
+}
+
+@media only screen and (min-width: 481px) and (max-width: 1024px) {
+    .card_container {
+        width: 50%;
+        max-width: 50%;
+    }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 480px) {
+    .card_container {
+        width: 100%;
+        max-width: 100%;
+    }
+}
