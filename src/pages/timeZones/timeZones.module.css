@@ -1,8 +1,8 @@
 .root {
-    padding-left: 7em;
-    padding-right: 7em;
+    padding-left: 7rem;
+    padding-right: 7rem;
     height: calc(100% + 7.8rem);
-    width: calc(100% - 14em);
+    width: calc(100% - 14rem);
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -27,12 +27,17 @@
 }
 
 .list {
-    width: 100%;
+    width: calc(100% - 25rem);
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
     margin-top: 3.3rem;
+}
+@media only screen and (min-width: 1025px) and (max-width: 1366px) {
+    .list {
+        width: calc(100% - 7em);
+    }
 }
 
 @media only screen and (min-width: 481px) and (max-width: 1024px) {
@@ -40,6 +45,10 @@
         padding-left: 3.5em;
         padding-right: 3.5em;
         height: 100%;
+        width: calc(100% - 7em);
+    }
+
+    .list {
         width: calc(100% - 7em);
     }
 
@@ -53,6 +62,10 @@
         padding-left: 1.5em;
         padding-right: 1.5em;
         height: 100%;
+        width: calc(100% - 3em);
+    }
+
+    .list {
         width: calc(100% - 3em);
     }
 
