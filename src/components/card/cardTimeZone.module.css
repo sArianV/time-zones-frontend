@@ -1,6 +1,7 @@
 .card_container {
     width: 25%;
     max-width: 25%;
+    min-height: 8.75rem;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

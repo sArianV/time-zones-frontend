@@ -24,6 +24,7 @@ function InputText() {
 
     return (
         <input
+            autoComplete="off" 
             className={styles.input}
             type="text"
             placeholder="Enter a time zone"
