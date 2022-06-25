@@ -4,10 +4,12 @@ import styles from './cardTimeZone.module.css'
 import Clock from '../clock/Clock';
 import DeleteButton from '../buttons/DeleteButton';
 import Loader from '../loader/Loader';
+
 function CardTimeZone({ timeZone }) {
     const timeZonesContext = useContext(TimeZonesContext);
     const { fetchTimeZone, deleteUserTimeZone } = timeZonesContext;
 
+    const [loadingDelete, setLoadingDelete] = useState(false);
     const [loading, setLoading] = useState(false);
     const [timeZoneData, setTimeZoneData] = useState();
 
@@ -30,32 +32,43 @@ function CardTimeZone({ timeZone }) {
         getTimeZone(timeZone)
     }, [timeZone])
 
-    const handleDelete = async() => {
-        deleteUserTimeZone(timeZone)
+    const handleDelete = async () => {
+        setLoadingDelete(true);
+        await deleteUserTimeZone(timeZone)
+        setLoadingDelete(false);
     }
 
     return (
         <div className={styles.card_container}>
-            <div className={styles.card}>
-                <div 
-                    className={styles.delete_button_container} 
-                    onClick={handleDelete}
-                >
-                    <DeleteButton />
+            {
+                loading &&
+                <Loader />
+            }
+            {!loading && timeZoneData &&
+                <div className={styles.card}>
+                    <div
+                        className={styles.delete_button_container}
+                        onClick={handleDelete}
+                    >
+                        {loadingDelete &&
+                            <Loader />
+                        }
+
+                        {!loadingDelete &&
+                            <DeleteButton />
+                        }
+                    </div>
+
+                    {
+                        timeZoneData &&
+                        <Clock
+                            ianatz={timeZoneData.timezone}
+                            offset={timeZoneData.raw_offset}
+                            location={timeZoneData.location}
+                        />
+                    }
                 </div>
-                {
-                    loading &&
-                    <Loader />
-                }
-                {
-                    timeZoneData &&
-                    <Clock
-                        ianatz={timeZoneData.timezone}
-                        offset={timeZoneData.raw_offset}
-                        location={timeZoneData.location}
-                    />
-                }
-            </div>
+            }
         </div>
     )
 }

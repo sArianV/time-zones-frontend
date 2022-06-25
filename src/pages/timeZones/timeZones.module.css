@@ -1,6 +1,7 @@
 .root {
     padding-left: 7rem;
     padding-right: 7rem;
+    padding-bottom: 2rem;
     height: calc(100% + 7.8rem);
     width: calc(100% - 14rem);
     display: flex;

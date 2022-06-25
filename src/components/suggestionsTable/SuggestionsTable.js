@@ -1,27 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import TimeZonesContext from '../../context/timeZones/timeZonesContext';
 import styles from './suggestionsTable.module.css'
+import TableItem from './TableItem';
 
 function SuggestionsTable() {
     const timeZonesContext = useContext(TimeZonesContext);
-    const { suggestions, addUserTimeZone } = timeZonesContext;
-
-    const handleClick = async (timeZone) => {
-        await addUserTimeZone(timeZone);
-    }
+    const { suggestions } = timeZonesContext;
 
     return (
         <div className={styles.table}>
             {
                 suggestions.length > 0 ?
                     suggestions.map(timeZone => (
-                        <div
-                            className={styles.row}
+                        <TableItem
+                            timeZone={timeZone}
                             key={timeZone}
-                            onClick={() => handleClick(timeZone)}
-                        >
-                            {timeZone}
-                        </div>
+                        />
                     ))
                     :
                     <div
