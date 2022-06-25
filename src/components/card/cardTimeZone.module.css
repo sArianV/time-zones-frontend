@@ -20,8 +20,8 @@
 
 .delete_button_container {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: .5rem;
+    right: .5rem;
 }
 
 @media only screen and (min-width: 481px) and (max-width: 1024px) {
