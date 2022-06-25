@@ -12,7 +12,7 @@ function CardTimeZone({ timeZone }) {
     const [timeZoneData, setTimeZoneData] = useState();
 
     const getLoacation = (name) => {
-        const location = name.split('/')[1];
+        const location = name.split('/').reverse()[0];
         return location;
     }
 
