@@ -1,8 +1,23 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from './inputText.module.css'
-function InputText() {
-    const [userInput, setUserInput] = useState('')
+import TimeZonesContext from '../../context/timeZones/timeZonesContext';
+import useFilterSuggestions from '../../hooks/useFilterSuggestions';
 
+function InputText() {
+    const timeZonesContext = useContext(TimeZonesContext);
+    const { setSuggestions, timeZones, reloadUserData } = timeZonesContext;
+
+    const [userInput, setUserInput] = useState('')
+    const { filteredList } = useFilterSuggestions({ userInput, originalList: timeZones })
+
+    useEffect(() => {
+        setSuggestions(filteredList)
+    }, [filteredList])
+    
+    useEffect(() => {
+      setUserInput('')
+    }, [reloadUserData])
+    
     const handleChange = (e) => {
         setUserInput(e.target.value)
     }

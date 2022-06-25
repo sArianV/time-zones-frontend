@@ -6,21 +6,30 @@ function SuggestionsTable() {
     const timeZonesContext = useContext(TimeZonesContext);
     const { suggestions, addUserTimeZone } = timeZonesContext;
 
-    const handleClick = async(timeZone) => {
-        await addUserTimeZone(timeZone);    
+    const handleClick = async (timeZone) => {
+        await addUserTimeZone(timeZone);
     }
 
     return (
         <div className={styles.table}>
-            {suggestions.map(timeZone => (
-                <div 
-                    className={styles.row}
-                    key={timeZone}
-                    onClick={() => handleClick(timeZone)}
-                >
-                    {timeZone}
-                </div>
-            ))}
+            {
+                suggestions.length > 0 ?
+                    suggestions.map(timeZone => (
+                        <div
+                            className={styles.row}
+                            key={timeZone}
+                            onClick={() => handleClick(timeZone)}
+                        >
+                            {timeZone}
+                        </div>
+                    ))
+                    :
+                    <div
+                        className={styles.row}
+                    >
+                        This time zone does not exist.
+                    </div>
+            }
         </div>
     )
 }
