@@ -22,8 +22,6 @@ function InputText() {
         setUserInput(e.target.value)
     }
 
-    console.log(userInput)
-
     return (
         <input
             className={styles.input}
