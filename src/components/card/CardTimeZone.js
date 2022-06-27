@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import TimeZonesContext from '../../context/timeZones/timeZonesContext';
 import styles from './cardTimeZone.module.css'
 import Clock from '../clock/Clock';
 import DeleteButton from '../buttons/DeleteButton';
 import Loader from '../loader/Loader';
 
-function CardTimeZone({ timeZone }) {
+const CardTimeZone = memo(({ timeZone }) => {
     const timeZonesContext = useContext(TimeZonesContext);
     const { fetchTimeZone, deleteUserTimeZone } = timeZonesContext;
 
@@ -71,6 +71,6 @@ function CardTimeZone({ timeZone }) {
             }
         </div>
     )
-}
+})
 
 export default CardTimeZone
