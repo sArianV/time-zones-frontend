@@ -10,7 +10,7 @@ export default (state, action) => {
         case ACTIONS.DELETE_USER_TIME_ZONE:
             return {
                 ...state,
-                reloadUserData: !state.reloadUserData
+                userTimeZones: action.payload || state.userTimeZones,
             }
 
         case ACTIONS.GET_TIME_ZONES:
@@ -27,7 +27,7 @@ export default (state, action) => {
         case ACTIONS.ADD_USER_TIME_ZONE:
             return {
                 ...state,
-                reloadUserData: !state.reloadUserData,
+                userTimeZones: action.payload || state.userTimeZones,
             }
         default:
             return state;

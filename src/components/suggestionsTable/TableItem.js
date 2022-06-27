@@ -3,7 +3,7 @@ import TimeZonesContext from '../../context/timeZones/timeZonesContext';
 import Loader from '../loader/Loader';
 import styles from './tableItem.module.css'
 
-function TableItem({ timeZone }) {
+function TableItem({ timeZone}) {
     const timeZonesContext = useContext(TimeZonesContext);
     const { addUserTimeZone } = timeZonesContext;
     const [ loading , setLoading ] = useState(false);
@@ -13,6 +13,7 @@ function TableItem({ timeZone }) {
         await addUserTimeZone(timeZone);
         setLoading(false);
     }
+
     return (
         <div
             className={styles.row}

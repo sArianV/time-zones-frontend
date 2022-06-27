@@ -9,7 +9,6 @@ const TimeZonesState = props => {
         timeZones: [],
         suggestions: [],
         userTimeZones: [],
-        reloadUserData: false
     };
     
     const [state, dispatch] = useReducer(TimeZonesReducer, initialState);
@@ -64,6 +63,7 @@ const TimeZonesState = props => {
 
             dispatch({
                 type: ACTIONS.DELETE_USER_TIME_ZONE,
+                payload: response?.data?.filteredTimeZones || null,
             });
         } catch (error) {
             console.log(error);
@@ -101,7 +101,9 @@ const TimeZonesState = props => {
 
             dispatch({
                 type: ACTIONS.ADD_USER_TIME_ZONE,
+                payload: response?.data?.filteredTimeZones || null,
             });
+
             return
         } catch (error) {
             console.log(error);
@@ -114,7 +116,6 @@ const TimeZonesState = props => {
             value={{
                 timeZones: state.timeZones,
                 userTimeZones: state.userTimeZones,
-                reloadUserData: state.reloadUserData,
                 getUserTimeZones,
                 fetchTimeZone,
                 deleteUserTimeZone,

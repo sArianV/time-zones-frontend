@@ -5,7 +5,7 @@ import useFilterSuggestions from '../../hooks/useFilterSuggestions';
 
 function InputText() {
     const timeZonesContext = useContext(TimeZonesContext);
-    const { setSuggestions, timeZones, reloadUserData } = timeZonesContext;
+    const { setSuggestions, timeZones, userTimeZones } = timeZonesContext;
 
     const [userInput, setUserInput] = useState('')
     const { filteredList } = useFilterSuggestions({ userInput, originalList: timeZones })
@@ -16,7 +16,7 @@ function InputText() {
     
     useEffect(() => {
       setUserInput('')
-    }, [reloadUserData])
+    }, [userTimeZones])
     
     const handleChange = (e) => {
         setUserInput(e.target.value)
