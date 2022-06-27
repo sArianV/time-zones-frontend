@@ -24,7 +24,7 @@ function SearchBar() {
   return (
     <div className={styles.root}>
       <div className={styles.input_container} onClick={toggleSuggestions}>        
-        <InputText />        
+        <InputText activeSuggestions={activeSuggestions} setActiveSuggestions={setActiveSuggestions}/>        
       </div>
 
       <div className={styles.toggle_suggestions} onClick={toggleSuggestions}>

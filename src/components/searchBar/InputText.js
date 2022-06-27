@@ -3,7 +3,7 @@ import styles from './inputText.module.css'
 import TimeZonesContext from '../../context/timeZones/timeZonesContext';
 import useFilterSuggestions from '../../hooks/useFilterSuggestions';
 
-function InputText() {
+function InputText({activeSuggestions, setActiveSuggestions}) {
     const timeZonesContext = useContext(TimeZonesContext);
     const { setSuggestions, timeZones, userTimeZones } = timeZonesContext;
 
@@ -19,6 +19,9 @@ function InputText() {
     }, [userTimeZones])
     
     const handleChange = (e) => {
+        if ( !activeSuggestions ) {
+            setActiveSuggestions(true)
+        }
         setUserInput(e.target.value)
     }
 
