@@ -15,7 +15,7 @@
     width: calc(100% - 1rem);
     max-width: calc(100% - 1rem);
     min-height: 8.75rem;
-    background-color: #fff;
+    background-color: #f6f6f6;
     border-radius: 3px;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.08);
 }

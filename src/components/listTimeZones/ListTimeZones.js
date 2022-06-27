@@ -6,7 +6,7 @@ import styles from './listTimeZones.module.css'
 
 function ListTimeZones() {
   const timeZonesContext = useContext(TimeZonesContext);
-  const { userTimeZones, reloadUserData , getUserTimeZones } = timeZonesContext;
+  const { userTimeZones, getUserTimeZones } = timeZonesContext;
   const [loading, setLoading] = useState(false);
 
   const fetchUserTimeZones = async () => {
@@ -17,7 +17,7 @@ function ListTimeZones() {
 
   useEffect(() => {
     fetchUserTimeZones()
-  }, [ reloadUserData ])
+  }, [])
 
   return (
     <div className={styles.root}> 

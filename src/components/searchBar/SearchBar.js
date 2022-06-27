@@ -6,15 +6,16 @@ import InputText from './InputText';
 
 function SearchBar() {
   const timeZonesContext = useContext(TimeZonesContext);
-  const { fetchTimeZones, reloadUserData } = timeZonesContext;
+  const { fetchTimeZones, userTimeZones, timeZones } = timeZonesContext;
 
   const [activeSuggestions, setActiveSuggestions] = useState(false)
 
   useEffect(() => {
-
-    fetchTimeZones()
+    if ( timeZones.length === 0 ) {
+      fetchTimeZones()
+    }
     setActiveSuggestions(false)
-  }, [reloadUserData])
+  }, [userTimeZones])
   
   const toggleSuggestions = () => {
     setActiveSuggestions(prevActiveSuggestions => !prevActiveSuggestions)
